@@ -24,7 +24,7 @@ export default {
     grid-template-areas: 'slider library'
                           'time-line time-line';
     grid-template-columns: 600px 1fr;
-    grid-template-rows: 400px 150px;
+    grid-template-rows: 400px 175px;
     grid-gap: 10px;
     width: 100%;
     height: 100%;

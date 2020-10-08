@@ -2,15 +2,34 @@
   <section class="library">
     <h3 class="library__title">Images</h3>
     <div class="library__images">
-      <div>
-      </div>
+      <img
+        v-for="img in images"
+        :key="img.id"
+        :src="img.url"
+        alt=""
+        @click="selectImg(img.id)"
+      >
     </div>
   </section>
 </template>
 
 <script>
-export default {
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 
+export default {
+  computed: {
+    ...mapGetters(['images']),
+  },
+  methods: {
+    selectImg(id) {
+      this.addImag(id);
+    },
+    ...mapMutations(['addImag']),
+    ...mapActions(['fetchImages']),
+  },
+  async mounted() {
+    this.fetchImages(30);
+  },
 };
 </script>
 
@@ -34,20 +53,21 @@ export default {
     }
 
     &__images {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      grid-auto-rows: 50px;
-      grid-gap: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
       padding: 20px 10px;
-      overflow-y: scroll;
       border: 1px solid #808080;
+      overflow-y: scroll;
     }
   }
 
   img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    cursor: pointer;
+    width: 125px;
+    padding-bottom: 10px;
+
+    object-fit: contain;
     object-position: center;
   }
 </style>

@@ -45,4 +45,23 @@ export default {
 
     padding-right: 10px;
   }
+  ul {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0 10px;
+
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  li {
+    width: 150px;
+    height: 125px;
+
+    border: 2px solid #808080;
+  }
 </style>

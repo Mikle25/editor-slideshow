@@ -3,10 +3,7 @@
     <div class="wraper" >
       <div
         class="carusel-slide__image"
-        :style="{
-          'margin-left': '-' + (100 * slideIndex) + '%',
-          'opacity': 1,
-        }"
+        :style="positionSlide"
       >
         <Slide
           v-for="item in stackImages"
@@ -23,7 +20,12 @@
       >
         Play
       </button>
-      <button class="carusel-slide__stop btn" @click="stopSlide">Stop</button>
+      <button
+        class="carusel-slide__stop btn"
+        @click="stopSlide"
+      >
+        Stop
+      </button>
     </div>
   </section>
 </template>
@@ -46,26 +48,30 @@ export default {
   },
   methods: {
     playSlide() {
-      if (this.stackImages.length !== 0) {
+      if (!this.isPlay) {
         this.isPlay = true;
+        this.timing = setInterval(() => {
+          if (this.slideIndex < this.stackImages.length - 1) {
+            this.slideIndex += 1;
+            console.log(this.slideIndex);
+          } else {
+            this.slideIndex = 0;
+          }
+        }, 2000);
       }
-
-      this.timing = setInterval(() => {
-        if (this.slideIndex < this.stackImages.length - 1) {
-          this.slideIndex += 1;
-        } else {
-          this.slideIndex = 0;
-        }
-      }, 2000);
     },
     stopSlide() {
-      console.log(this.slideIndex);
       this.isPlay = false;
       clearInterval(this.timing);
     },
   },
   computed: {
     ...mapGetters(['stackImages']),
+    positionSlide() {
+      return {
+        transform: `translateX(-${100 * this.slideIndex}%)`,
+      };
+    },
   },
   updated() {
     this.lengthStack = this.stackImages.length;

@@ -12,6 +12,9 @@ export default {
 </script>
 
 <style lang="scss">
+body {
+  box-sizing: border-box;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19,7 +22,20 @@ export default {
   text-align: center;
   color: #2c3e50;
   width: 100%;
-  box-sizing: border-box;
 }
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
 
+    &-track {
+      background: #f1f1f1;
+    }
+
+    &-thumb {
+      background: #888;
+      &:hover {
+        background: #555;
+      }
+    }
+  }
 </style>

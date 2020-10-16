@@ -1,34 +1,40 @@
 <template>
   <section class="library">
     <h3 class="library__title">Images</h3>
-    <div class="library__images">
+    <div
+      class="library__images droppable"
+    >
       <img
         v-for="img in images"
         :key="img.id"
+        class="draggable"
         :src="img.url"
         alt=""
-        @click="selectImg(img.id)"
+        @dragstart="onDragStart($event, img.id)"
+        draggable="true"
       >
     </div>
   </section>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   computed: {
     ...mapGetters(['images']),
   },
   methods: {
-    selectImg(id) {
-      this.addImag(id);
+    onDragStart(e, item) {
+      e.dataTransfer.dropEffect = 'move';
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('itemId', item);
     },
-    ...mapMutations(['addImag']),
     ...mapActions(['fetchImages']),
   },
   async mounted() {
     this.fetchImages(30);
+    console.log(localStorage.length);
   },
 };
 </script>
@@ -56,7 +62,7 @@ export default {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-evenly;
-      padding: 20px 10px;
+      padding: 20px 10px 10px;
       border: 1px solid #808080;
       overflow-y: scroll;
     }

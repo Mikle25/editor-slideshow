@@ -1,6 +1,14 @@
 <template>
-  <section class="time-line">
-    <img
+  <section
+    class="time-line droppable"
+    @dragover.prevent
+    @dragenter.prevent="onDragHover"
+    @dragleave.prevent="onDragHover"
+    @drop="onDrop($event)"
+    :class="{hovered: isHover}"
+  >
+  <img
+      class="draggable"
       v-for="img in stackImages"
       :key="img.id"
       :src="img.url"
@@ -15,6 +23,11 @@
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
+  data() {
+    return {
+      isHover: false,
+    };
+  },
   computed: {
     ...mapGetters(['stackImages']),
   },
@@ -22,6 +35,19 @@ export default {
     removeImg(id) {
       this.removeImag(id);
     },
+    onDrop(e) {
+      const id = e.dataTransfer.getData('itemId');
+      this.addImag(id);
+      this.isHover = false;
+    },
+    onDragHover() {
+      if (!this.isHover) {
+        this.isHover = true;
+      } else {
+        this.isHover = false;
+      }
+    },
+    ...mapMutations(['addImag']),
     ...mapMutations(['removeImag']),
   },
 };
@@ -36,32 +62,18 @@ export default {
 
     overflow-x: scroll;
     border: 1px solid #808080;
+    transition: all 0.3s ease;
   }
 
-  img {
-    cursor: pointer;
+  .draggable {
     width: 150px;
     height: 125px;
-
-    padding-right: 10px;
-  }
-  ul {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0 10px;
-
-    list-style: none;
-    display: flex;
-    justify-content: space-evenly;
-  }
-
-  li {
-    width: 150px;
-    height: 125px;
-
     border: 2px solid #808080;
+    margin-right: 50px;
+
+  }
+
+  .hovered {
+    box-shadow: 0 0 5px 5px #808080;
   }
 </style>

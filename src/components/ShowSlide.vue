@@ -3,10 +3,7 @@
     <div class="wraper" >
       <div
         class="carusel-slide__image"
-        :style="{
-          'margin-left': '-' + (100 * slideIndex) + '%',
-          'opacity': 1,
-        }"
+        :style="positionSlide"
       >
         <Slide
           v-for="item in stackImages"
@@ -23,19 +20,23 @@
       >
         Play
       </button>
-      <button class="carusel-slide__stop btn" @click="stopSlide">Stop</button>
+      <button
+        class="carusel-slide__stop btn"
+        @click="stopSlide"
+      >
+        Stop
+      </button>
     </div>
   </section>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import Slide from '@/components/Slide.vue';
 
 export default {
   data() {
     return {
-      slideIndex: 0,
       isPlay: false,
       timing: null,
       lengthStack: null,
@@ -45,33 +46,27 @@ export default {
     Slide,
   },
   methods: {
+    ...mapMutations(['updateSlideIndex']),
     playSlide() {
-      if (this.stackImages.length !== 0) {
+      if (!this.isPlay && this.stackImages.length > 0) {
         this.isPlay = true;
+        this.timing = setInterval(() => {
+          this.updateSlideIndex();
+        }, 2000);
       }
-
-      this.timing = setInterval(() => {
-        if (this.slideIndex < this.stackImages.length - 1) {
-          this.slideIndex += 1;
-        } else {
-          this.slideIndex = 0;
-        }
-      }, 2000);
     },
     stopSlide() {
-      console.log(this.slideIndex);
       this.isPlay = false;
       clearInterval(this.timing);
     },
   },
   computed: {
-    ...mapGetters(['stackImages']),
-  },
-  updated() {
-    this.lengthStack = this.stackImages.length;
-    if (this.lengthStack === 0) {
-      this.slideIndex = 0;
-    }
+    ...mapGetters(['stackImages', 'slideIndex']),
+    positionSlide() {
+      return {
+        transform: `translateX(-${100 * this.slideIndex}%)`,
+      };
+    },
   },
 };
 </script>

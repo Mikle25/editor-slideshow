@@ -34,6 +34,7 @@ export default {
   },
   async mounted() {
     this.fetchImages(30);
+    console.log(localStorage.length);
   },
 };
 </script>

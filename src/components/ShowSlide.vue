@@ -31,13 +31,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import Slide from '@/components/Slide.vue';
 
 export default {
   data() {
     return {
-      slideIndex: 0,
       isPlay: false,
       timing: null,
       lengthStack: null,
@@ -47,16 +46,12 @@ export default {
     Slide,
   },
   methods: {
+    ...mapMutations(['updateSlideIndex']),
     playSlide() {
-      if (!this.isPlay) {
+      if (!this.isPlay && this.stackImages.length > 0) {
         this.isPlay = true;
         this.timing = setInterval(() => {
-          if (this.slideIndex < this.stackImages.length - 1) {
-            this.slideIndex += 1;
-            console.log(this.slideIndex);
-          } else {
-            this.slideIndex = 0;
-          }
+          this.updateSlideIndex();
         }, 2000);
       }
     },
@@ -66,18 +61,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['stackImages']),
+    ...mapGetters(['stackImages', 'slideIndex']),
     positionSlide() {
       return {
         transform: `translateX(-${100 * this.slideIndex}%)`,
       };
     },
-  },
-  updated() {
-    this.lengthStack = this.stackImages.length;
-    if (this.lengthStack === 0) {
-      this.slideIndex = 0;
-    }
   },
 };
 </script>

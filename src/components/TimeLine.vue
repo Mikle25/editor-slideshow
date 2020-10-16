@@ -69,7 +69,7 @@ export default {
     width: 150px;
     height: 125px;
     border: 2px solid #808080;
-    margin-right: 5px;
+    margin-right: 50px;
 
   }
 

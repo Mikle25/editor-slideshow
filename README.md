@@ -1,24 +1,7 @@
 # editor-slideshow
+- [DEMO](https://mikle25.github.io/editor-slideshow/)
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## The effect of dragging a picture from the picture library into the queue has been implemented.
+  1. Drag and drop images to queue
+  1. To delete, right-click on a picture in the queue.
+  1. To start the slider, press the play button, to stop, press the stop button.

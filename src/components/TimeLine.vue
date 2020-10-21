@@ -7,15 +7,17 @@
     @drop="onDrop($event)"
     :class="{hovered: isHover}"
   >
-  <img
-      class="draggable"
-      v-for="img in stackImages"
-      :key="img.id"
-      :src="img.url"
-      alt=""
-      @click.right="removeImg(img.id)"
-      @contextmenu.prevent
-    >
+    <div class="wrap">
+      <img
+        class="draggable"
+        v-for="img in stackImages"
+        :key="img.id"
+        :src="img.url"
+        alt=""
+        @click.right="removeImg(img.id)"
+        @contextmenu.prevent
+      >
+    </div>
   </section>
 </template>
 
@@ -56,24 +58,30 @@ export default {
 <style lang="scss" scoped>
   .time-line {
     display: flex;
-    justify-content: start;
     align-items: center;
-    padding: 10px;
+    padding: 0 20px;
+
+    overflow-x: hidden;
+    border: 1px solid $colorBorder;
+    transition: all 0.3s ease;
+  }
+
+  .wrap {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
 
     overflow-x: scroll;
-    border: 1px solid #808080;
-    transition: all 0.3s ease;
   }
 
   .draggable {
     width: 150px;
     height: 125px;
-    border: 2px solid #808080;
-    margin-right: 50px;
-
+    border: 2px solid $colorBorder;
+    margin-right: 20px;
   }
 
   .hovered {
-    box-shadow: 0 0 5px 5px #808080;
+    box-shadow: 0 0 5px 5px $colorBorder;
   }
 </style>

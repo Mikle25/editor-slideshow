@@ -4,13 +4,6 @@
   </div>
 </template>
 
-<script>
-
-export default {
-
-};
-</script>
-
 <style lang="scss">
 body {
   box-sizing: border-box;
@@ -32,7 +25,7 @@ body {
     }
 
     &-thumb {
-      background: #888;
+      background:$colorBorder;
       &:hover {
         background: #555;
       }

@@ -51,7 +51,7 @@ export default {
       width: 80px;
       margin: 0;
 
-      border: 1px solid #808080;
+      border: 1px solid $colorBorder;
       background-color: rgba(200, 200, 200, 0.5);
       border-bottom: none;
       border-top-left-radius: 10px;
@@ -63,7 +63,7 @@ export default {
       flex-wrap: wrap;
       justify-content: space-evenly;
       padding: 20px 10px 10px;
-      border: 1px solid #808080;
+      border: 1px solid $colorBorder;
       overflow-y: scroll;
     }
   }

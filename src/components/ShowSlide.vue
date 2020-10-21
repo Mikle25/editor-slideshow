@@ -14,14 +14,14 @@
     </div>
     <div class="carusel-slide__controle">
       <button
-        class="carusel-slide__play btn"
+        :class="[{'btn--active': stackImages.length >= 0},'carusel-slide__play', 'btn']"
         @click="playSlide"
         :disabled="stackImages.length <= 0"
       >
         Play
       </button>
       <button
-        class="carusel-slide__stop btn"
+        class="carusel-slide__stop btn btn--active"
         @click="stopSlide"
       >
         Stop
@@ -52,7 +52,7 @@ export default {
         this.isPlay = true;
         this.timing = setInterval(() => {
           this.updateSlideIndex();
-        }, 2000);
+        }, 3000);
       }
     },
     stopSlide() {
@@ -64,6 +64,7 @@ export default {
     ...mapGetters(['stackImages', 'slideIndex']),
     positionSlide() {
       return {
+        transition: 'all 1s ease',
         transform: `translateX(-${100 * this.slideIndex}%)`,
       };
     },
@@ -80,8 +81,7 @@ export default {
       display: flex;
       height: 100%;
 
-      background-color: #000;
-      transition: all ease 0.5s;
+      background-color: $colorMain;
     }
 
     &__controle {
@@ -92,13 +92,22 @@ export default {
       align-items: center;
       padding-left: 10px;
 
-      border: 1px solid #808080;
+      border: 1px solid $colorBorder;
     }
   }
 
   .btn {
+    position: relative;
     cursor: pointer;
-    height: 50%;
+    height: 70%;
+    border-radius: 5px;
+
+    background-color: $colorBorder;
+    transition: all 0.3s ease;
+
+    &--active:hover{
+      transform: scale(1.1);
+    }
   }
 
   .wraper {

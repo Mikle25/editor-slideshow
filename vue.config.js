@@ -1,5 +1,6 @@
 module.exports = {
   lintOnSave: false,
+  publicPath: '/editor-slideshow/',
   css: {
     loaderOptions: {
       sass: {
